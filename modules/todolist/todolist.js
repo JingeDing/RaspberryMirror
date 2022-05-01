@@ -9,7 +9,7 @@
 
 Module.register("todolist", {
 	defaults: {
-		updateInterval: 60000,
+		updateInterval: 6000,
 		retryDelay: 5000
 	},
 
@@ -98,7 +98,7 @@ Module.register("todolist", {
 				
 				var lable=document.createElement("label");
 				lable.setAttribute("text-align",'center');
-				lable.innerHTML=this.translate("日程表");
+				lable.innerHTML=this.translate("我的日程");
 				var mydiv=document.createElement("div");
 				mydiv.innerHTML=Object.keys(this.dataRequest).length;
 		        var mytable=document.createElement("table");
