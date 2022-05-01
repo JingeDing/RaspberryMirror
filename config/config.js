@@ -27,15 +27,20 @@ var config =
       config: {}
     },
     {
+      module: 'recom',
+      position: 'bottom_bar',
+      header: '',
+      config: {}
+    },
+    {
       module: 'calendar',
       header: 'Calendar',
       position: 'top_left',
-      disabled: true,
       config: {
         calendars: [
           {
             symbol: 'calendar-check',
-            url: 'webcal://www.calendarlabs.com/ical-calendar/ics/76/US_Holidays.ics'
+            url: 'webcal://1.15.22.18:8080/test.ics'
           }
         ]
       }
@@ -68,8 +73,8 @@ var config =
       header: 'Weather Forecast',
       config: {
         type: 'forecast',
-        location: '郑州',
-        locationID: '1784658',
+        location: '南京',
+        locationID: '1799962',
         apiKey: 'a711126a54a4a77ed054990061372a3e'
       }
     },
@@ -79,13 +84,13 @@ var config =
       config: {
         feeds: [
           {
+            title: '人民网——世界',
+            url: 'http://www.people.com.cn/rss/world.xml'
+          },
+          {
             title: '人民网——时政',
             url: 'http://www.people.com.cn/rss/politics.xml'
           },
-          {
-            title: '人民网——世界',
-            url: 'http://www.people.com.cn/rss/world.xml'
-          }
         ]
       }
     }

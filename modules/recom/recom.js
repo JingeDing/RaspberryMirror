@@ -1,16 +1,16 @@
 /* global Module */
 
 /* Magic Mirror
- * Module: todolist
+ * Module: recom
  *
  * By {{AUTHOR_NAME}}
  * {{LICENSE}} Licensed.
  */
 
-Module.register("todolist", {
+Module.register("recom", {
 	defaults: {
-		updateInterval: 60000,
-		retryDelay: 5000
+		updateInterval: 600000,
+		retryDelay: 500000
 	},
 
 	requiresVersion: "2.1.0", // Required version of MagicMirror
@@ -40,7 +40,7 @@ Module.register("todolist", {
 		var self = this;
 
 		// var urlApi = "https://jsonplaceholder.typicode.com/posts/1";
-		var urlApi = "https://mirror.jinge.asia:8443/schedule/queryAll";
+		var urlApi = "http://api.tianapi.com/tianqi/index?key=7dfa07f5e5b3ff1da40bd50375b64cd6&city=%E9%83%91%E5%B7%9E%E5%B8%82";
 		//var urlApi = "http://api.tianapi.com/networkhot/index?key=7dfa07f5e5b3ff1da40bd50375b64cd6";
 
 		var retry = true;
@@ -95,57 +95,19 @@ Module.register("todolist", {
 		console.log(this.dataRequest)
 		// If this.dataRequest is not empty
 		if (this.dataRequest) {
-				
-				var lable=document.createElement("label");
-				lable.setAttribute("text-align",'center');
-				lable.innerHTML=this.translate("日程表");
-				var mydiv=document.createElement("div");
-				mydiv.innerHTML=Object.keys(this.dataRequest).length;
-		        var mytable=document.createElement("table");
-		        var mytablebody = document.createElement("tbody");
-		for(var cont=1;cont<Object.keys(this.dataRequest).length;cont++){
-			for(var nextcont=cont;nextcont>0;nextcont--){
-				if(this.dataRequest[nextcont-1].s_date>this.dataRequest[nextcont].s_date){
-					var temp=this.dataRequest[nextcont-1].s_date;
-					this.dataRequest[nextcont-1].s_date=this.dataRequest[nextcont].s_date;
-					this.dataRequest[nextcont].s_date=temp;
-					var temp1=this.dataRequest[nextcont-1].s_content;
-					this.dataRequest[nextcont-1].s_content=this.dataRequest[nextcont].s_content;
-					this.dataRequest[nextcont].s_content=temp1;
-				}
-			}
-		}
-				for(var z=0;z<3;z++){
-					var current_row=document.createElement("tr");
-					for(var t=0;t<2;t++){
-						var current_cell=document.createElement("td");
-						if(t==0){
-						var message1=this.dataRequest[z].s_date;	
-						var currenttext1=document.createTextNode(message1);
-						current_cell.appendChild(currenttext1);
-						}
-						if(t==1){
-						var message2=this.dataRequest[z].s_content;
-						var currenttext2=document.createTextNode(message2);
-						current_cell.appendChild(currenttext2);
-						}
-						current_row.appendChild(current_cell);
-					}
-					mytablebody.appendChild(current_row);
-				}
-				//wrapper.appendChild(mydiv);
-				wrapper.appendChild(lable);
-				mytable.appendChild(mytablebody);
-				mytable.setAttribute("border","1");
-			    wrapper.appendChild(mytable);
-
-		
+			var wrapperDataRequest = document.createElement("div");
 			// check format https://jsonplaceholder.typicode.com/posts/1
-		 
-			//wrapperDataRequest.innerHTML = this.dataRequest[4].nickname;
+			wrapperDataRequest.innerHTML = this.dataRequest.newslist[0].tips;
+
+			var labelDataRequest = document.createElement("label");
 			// Use translate function
 			//             this id defined in translations files
-			//labelDataRequest.innerHTML = this.translate("TITLE");
+			labelDataRequest.innerHTML = this.translate("穿搭提示");
+
+
+			wrapper.appendChild(labelDataRequest);
+			wrapper.appendChild(wrapperDataRequest);
+			
 		}
 
 		// Data from helper
@@ -165,7 +127,7 @@ Module.register("todolist", {
 
 	getStyles: function () {
 		return [
-			"todolist.css",
+			"recom.css",
 		];
 	},
 
@@ -186,12 +148,12 @@ Module.register("todolist", {
 
 		// the data if load
 		// send notification to helper
-		this.sendSocketNotification("todolist-NOTIFICATION_TEST", data);
+		this.sendSocketNotification("recom-NOTIFICATION_TEST", data);
 	},
 
 	// socketNotificationReceived from helper
 	socketNotificationReceived: function (notification, payload) {
-		if(notification === "todolist-NOTIFICATION_TEST") {
+		if(notification === "recom-NOTIFICATION_TEST") {
 			// set dataNotification
 			this.dataNotification = payload;
 			this.updateDom();
